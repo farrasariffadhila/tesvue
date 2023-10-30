@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kalkulator</title>
+</head>
+<body>
+    <h1>Kalkulator Sederhana</h1>
+    <form id="calculatorForm">
+        <label for="fangka">First Number:</label><br>
+        <input type="text" id="fangka" name="fangka" value=""><br>
+        <label for="langka">Last Number:</label><br>
+        <input type="text" id="langka" name="langka" value=""><br><br>
+        <label>Operation:</label><br>
+        <button type="button" id="addBtn" onclick="performOperation('+')">+</button>
+        <button type="button" id="subtractBtn" onclick="performOperation('-')">-</button>
+        <button type="button" id="multiplyBtn" onclick="performOperation('*')">*</button>
+        <button type="button" id="divideBtn" onclick="performOperation('/')">/</button><br><br>
+        <input type="text" id="result" name="result" readonly><br>
+        <p id="alertText" style="color: red;"></p>
+    </form>
+
+    <script>
+        function performOperation(operation) {
+            let a = parseFloat(document.getElementById('fangka').value);
+            let b = parseFloat(document.getElementById('langka').value);
+            let result;
+            let alertText = document.getElementById('alertText');
+
+            switch (operation) {
+                case '+':
+                    result = a + b;
+                    break;
+                case '-':
+                    result = a - b;
+                    break;
+                case '*':
+                    result = a * b;
+                    break;
+                case '/':
+                    if (b !== 0) {
+                        result = a / b;
+                        if (!isFinite(result)) {
+                            alertText.textContent = "Infinity";
+                            return;
+                        }
+                    } else {
+                        alertText.textContent = "Cannot divide by zero";
+                        return;
+                    }
+                    break;
+                default:
+                    alertText.textContent = "Invalid operation";
+                    return;
+            }
+
+            document.getElementById('result').value = result;
+            alertText.textContent = '';
+        }
+    </script>
+</body>
+</html>
